@@ -1,6 +1,6 @@
 {
   "proxy": "http://localhost:3001",
-  "homepage" : "http://https://ryan-simple-library-app.herokuapp.com/",
+  "homepage" : "https://ryan-simple-library-app.herokuapp.com/",
   "name": "client",
   "version": "0.1.0",
   "private": true,
