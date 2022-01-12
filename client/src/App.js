@@ -1,23 +1,22 @@
-import React, { useEffect } from "react";
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
+import useAuth from './hooks/useAuth';
+import Layout from './Layout';
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import Search from './components/Search';
+import Routes from "./routes";
 
-function App() {
-  const [data, setData] = React.useState(null);
-
-  useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
+const App = () => { 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
-    </div>
+    <Layout maxWidth="md">  
+      <Router>
+        <Routes />    
+      </Router>
+    </Layout>
   );
 }
 
