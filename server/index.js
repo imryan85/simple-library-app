@@ -21,7 +21,7 @@ const app = express();
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-app.get("/test", (req, res) => {
+app.get("/api/test", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 

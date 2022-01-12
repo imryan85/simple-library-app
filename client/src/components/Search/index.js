@@ -1,10 +1,21 @@
 import React, { useEffect } from "react";
+import { 
+  Card,
+  CardContent,
+  Divider,
+} from "@mui/material";
 
 const Search = () => {
   return (
-    <div className="App">
-      Search Page    
-    </div>
+    <Card elevation={0}>
+      <CardContent>
+
+      </CardContent>
+      <Divider />
+      <CardContent>
+        
+      </CardContent>
+    </Card>
   );
 }
 

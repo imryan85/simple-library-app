@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useAuth = () => {
   const getToken = () => {
@@ -7,7 +7,7 @@ const useAuth = () => {
   };
 
   const [token, setToken] = useState(getToken());
-
+  
   const saveToken = accessToken => {
     localStorage.setItem('token', accessToken);
     setToken(accessToken);
