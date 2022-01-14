@@ -19,10 +19,6 @@ import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 const Cart = () => {
   const { authUser, setAuthUser } = useContext(UserContext);
 
-  useEffect(() => {
-    console.log('Cart useEffect')
-  }, [])
-
   const removeFromCart = async (bookId) => {
     try {
       const res = await axios.delete('/cart/remove', { 
@@ -39,6 +35,8 @@ const Cart = () => {
       alert(e.response.data.message);
     }
   }
+
+  if (!authUser) return null;
 
   return (
     <>      

@@ -13,12 +13,10 @@ const App = () => {
   const { token } = useAuth();
 
   useEffect(() => {
-    console.log('App useEffect')
     const getUserData = async () => {
       const res = await axios.get(`/user/${token}`);
       setAuthUser(res.data);
     }
-
     if (token) {   
       getUserData();   
     }

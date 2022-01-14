@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import UserContext from './UserContext';
 import useAuth from './hooks/useAuth'
@@ -13,20 +12,8 @@ import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Layout = ({ maxWidth, children }) => {
-  const { authUser, setAuthUser } = useContext(UserContext);
-  const { token, deleteToken } = useAuth();
-
-  // useEffect(() => {
-  //   console.log('useEffect')
-  //   const getUserData = async () => {
-  //     const res = await axios.get(`/user/${token}`);
-  //     setAuthUser(res.data);
-  //   }
-
-  //   if (token && !authUser) {   
-  //     getUserData();   
-  //   }
-  // }, [authUser, setAuthUser, token])
+  const { authUser } = useContext(UserContext);
+  const { deleteToken } = useAuth();
 
   const theme = createTheme({
     palette: {
