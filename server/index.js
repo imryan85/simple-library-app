@@ -6,10 +6,12 @@ const userRouter = require('./services/user/routes');
 const searchRouter = require('./services/search/routes');
 const cartRouter = require('./services/cart/routes');
 
+require('dotenv').config()
+
 const PORT = process.env.PORT || 3001;
 
 // Mongo DB
-const mongoDB = 'mongodb+srv://admin:admin@simple-library-mongo.3t9tx.mongodb.net/libraryDB?retryWrites=true&w=majority';
+const mongoDB = process.env.MONGO_DB_URI
 
 mongoose
   .connect(mongoDB, {

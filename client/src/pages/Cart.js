@@ -21,16 +21,13 @@ const Cart = () => {
 
   const removeFromCart = async (bookId) => {
     try {
-      const res = await axios.delete('/cart/remove', { 
-        userId: authUser._id,
-        bookId,
-      });
+      const res = await axios.delete(`/cart/remove/${authUser._id}/${bookId}`);
       const { cart } = res.data;
       setAuthUser({
         ...authUser,
         cart,
       })
-      alert('Added');
+      alert('Removed');
     } catch (e) {
       alert(e.response.data.message);
     }

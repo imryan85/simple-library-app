@@ -21,8 +21,8 @@ router.post('/add', async (req, res) => {
   }
 });
 
-router.delete('/remove', async (req, res) => {
-  const { userId, bookId } = req.body;
+router.delete('/remove/:userId/:bookId', async (req, res) => {
+  const { userId, bookId } = req.params;
   try {
     const data =  await removeFromCart(userId, bookId);
     res.json(data);
