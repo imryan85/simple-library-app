@@ -1,5 +1,4 @@
 const express = require('express');
-const { restart } = require('nodemon');
 const router = express.Router();
 const jsonParser = require("body-parser").json();
 
@@ -35,10 +34,10 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-router.get('/:email', async (req, res) => {
-  const { email } = req.params;
+router.get('/:token', async (req, res) => {
+  const { token } = req.params;
   try {
-    const user = await getUser(email);
+    const user = await getUser(token);
     res.status(!user ? 404 : 200).json(user);
   } catch (err) {
     res.status(400).json({

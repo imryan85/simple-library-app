@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const User = require('../../models/User')
+const User = require('../../models/User');
+const { populate } = require('../../models/User');
+
+const tokenSecret = "somesecret";
 
 module.exports.signInUser = async (email, password) => {  
   try {
     const query = { email, password };
-    console.log(query)
     const user = await User.findOne(query); 
-    console.log('user', user)
 
     if (!user) {
       throw new Error('Cannot find username and password');
@@ -15,11 +16,13 @@ module.exports.signInUser = async (email, password) => {
 
     const token = jwt.sign(
       { user: email },
-      "somesecret",
+      tokenSecret,
       { expiresIn: '2 days' },
     );
+    const authUser = user.toObject();
+    delete authUser.password;
 
-    return { token };  
+    return { token, authUser };  
   } catch (err) {
     throw err;
   }
@@ -43,9 +46,23 @@ module.exports.signUpUser = async (fullname, email, password) => {
   }
 }
 
-module.exports.getUser = async (email) => {
+module.exports.getUser = async (token) => {
   try {
-    const user = await User.findOne({ email });
+    const decoded = jwt.verify(token, tokenSecret);
+    const email = decoded.user;
+    const user = await User
+      .findOne({ email })
+      .populate({
+        path: 'cart',
+        // populate: {
+        //   path: 'author',
+        //   model: 'Author',
+        // },
+      })
+      .populate({
+        path: 'booksLending'
+      })
+      .exec();
     return user;
   } catch (err) {
     throw err;

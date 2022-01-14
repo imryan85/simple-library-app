@@ -1,5 +1,5 @@
 const db = require('../../tests/db');
-const User = require('../../models/User')
+const User = require('../../models/User');
 const {
   signInUser,
   signUpUser,
@@ -25,9 +25,11 @@ afterAll(async () => {
 
 describe("Sign In", () => {
 
-  it("should return token", async () => {    
+  it("should return token and authUser excluding password", async () => {    
     const res = await signInUser("email1@test.com", "pwd");
     expect(res.token).toBeDefined();
+    expect(res.authUser).toBeDefined();
+    expect(res.authUser.password).not.toBeDefined();
   })
 
   it("should fail if the same email/password does not match", async () => {

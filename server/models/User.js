@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
-const UserSchema = new mongoose.Schema(
+const UserSchema = new Schema(
   {
     fullname: {
       type: String,
@@ -16,13 +16,22 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cart: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Book',
+      },
+    ],
     booksLending: [
       {
         type: Schema.Types.ObjectId,
-        //ref: 'Book',
+        ref: 'Book',
       },
     ],
-  }
+  }, 
+  { 
+    timestamps: true, 
+  },
 );
 
 // hash the password

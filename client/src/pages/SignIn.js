@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
 import {
   Link,
   useNavigate,
@@ -25,11 +24,11 @@ const SignIn = () => {
     try {
       e.preventDefault();
       const res = await axios.post('/user/signin', { email: username, password });     
-      const { token } = res.data; 
-      setToken(token);
+      const { token, authUser } = res.data; 
+      setToken(token, authUser);
       navigate('/');
     } catch (e) {
-      setErrMsg(e.response.data);
+      setErrMsg(e.response.data.message);
     }
   }
 

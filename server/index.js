@@ -1,7 +1,10 @@
 const express = require("express");
 const path = require('path');
 const mongoose = require('mongoose');
+const sampleDataRouter = require('./services/sampleData/routes');
 const userRouter = require('./services/user/routes');
+const searchRouter = require('./services/search/routes');
+const cartRouter = require('./services/cart/routes');
 
 const PORT = process.env.PORT || 3001;
 
@@ -25,7 +28,10 @@ app.get("/api/test", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
+app.use('/sampleData', sampleDataRouter);
 app.use('/user', userRouter);
+app.use('/search', searchRouter);
+app.use('/cart', cartRouter);
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {

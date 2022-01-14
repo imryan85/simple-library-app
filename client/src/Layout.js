@@ -1,4 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from "react-router-dom";
+import UserContext from './UserContext';
+import useAuth from './hooks/useAuth'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
@@ -6,31 +10,59 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import useAuth from './hooks/useAuth'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Layout = ({ maxWidth, children }) => {
-  const { token } = useAuth();
+  const { authUser, setAuthUser } = useContext(UserContext);
+  const { token, deleteToken } = useAuth();
+
+  // useEffect(() => {
+  //   console.log('useEffect')
+  //   const getUserData = async () => {
+  //     const res = await axios.get(`/user/${token}`);
+  //     setAuthUser(res.data);
+  //   }
+
+  //   if (token && !authUser) {   
+  //     getUserData();   
+  //   }
+  // }, [authUser, setAuthUser, token])
 
   const theme = createTheme({
     palette: {
       background: {
-        default: "#ADD8E6",
+        default: "#eeeeee",
       },
       mode: 'light',
     },
   });
 
+  const signOut = () => {
+    deleteToken();
+    window.location.reload();
+  }
+
   return (
     <ThemeProvider theme={theme}>  
       <CssBaseline />
-      <AppBar position="static" elevation={0} style={{ background: '#ffffff', color: '#000000de' }}>
+      <AppBar position="static" elevation={0} sx={{ background: '#ffffff', color: '#000000de' }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component={Link} to="/" sx={{ flexGrow: 1 }}>
             Simple-Library-App
           </Typography>
           {
-            token && (
-              <Button color="inherit">Sign Out</Button>
+            authUser && (
+              <>
+                <Button component={Link} to="/cart" color="inherit">
+                  <ShoppingCartIcon />
+                  {
+                    authUser.cart.length > 0 && `(${authUser.cart.length})`
+                  }
+                </Button>
+                <Button color="inherit" onClick={signOut}>
+                  Sign Out
+                </Button>
+              </>
             )
           }          
         </Toolbar>
