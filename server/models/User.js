@@ -22,10 +22,10 @@ const UserSchema = new Schema(
         ref: 'Book',
       },
     ],
-    booksLending: [
+    lending: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Book',
+        ref: 'BookLended',
       },
     ],
   }, 

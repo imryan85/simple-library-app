@@ -1,5 +1,10 @@
 const db = require('../../tests/db');
 const User = require('../../models/User');
+const Book = require('../../models/Book');
+const Category = require('../../models/Category');
+const Author = require('../../models/Author');
+require('../../models/BookLended');
+
 const {
   signInUser,
   signUpUser,
@@ -9,11 +14,27 @@ beforeAll(async () => {
   await db.connect();
 
   //load test data
+
+  const category = await new Category({ category: `Some Category`}).save();
+  const author = await new Author({ name: `Some Author`}).save();
+
+  const book = await new Book({
+    isbn: '0123456789',
+    title: `Some Book Title 1`,
+    category: category._id,
+    author: author._id,
+    language: "English",
+    quantity: 1,
+    quantityAvailable: 1,
+  }).save();
+
   for(let i = 1; i < 4; i++) {
     await new User({
       fullname: `name ${i}`,
       email: `email${i}@test.com`,
       password: `pwd`,
+      cart: [ book._id ],
+      lending: [],
     }).save();
   }
 })

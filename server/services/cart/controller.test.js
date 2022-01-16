@@ -59,7 +59,6 @@ describe("Cart", () => {
 
   it("added item should be returned", async () => {    
     const ret = await addToCart(userId, bookToAddId);
-    console.log(ret)
     expect(ret.cart.filter(c => c._id.toString() == bookToAddId).length > 0).toEqual(true);
   })
 

@@ -1,11 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import axios from 'axios';
 import UserContext from '../UserContext';
-import useAuth from '../hooks/useAuth'
 import { 
   Card,
-  CardContent,
-  Grid,
   Typography,
   Button,
   Table,
@@ -13,23 +10,36 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Divider,
 } from "@mui/material";
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 
 const Cart = () => {
   const { authUser, setAuthUser } = useContext(UserContext);
 
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+
   const removeFromCart = async (bookId) => {
     try {
       const res = await axios.delete(`/cart/remove/${authUser._id}/${bookId}`);
-      const { cart } = res.data;
-      setAuthUser({
-        ...authUser,
-        cart,
-      })
+      setAuthUser(res.data);
       alert('Removed');
     } catch (e) {
       alert(e.response.data.message);
+    }
+  }
+
+  const checkout = async () => {
+    setIsCheckingOut(true);
+
+    try {
+      const res = await axios.post(`/checkout/queue`, { userId: authUser._id });
+      setAuthUser(res.data);
+      alert("Order placed");
+    } catch (e) {
+      alert(e.response.data.message);
+    } finally {
+      setIsCheckingOut(false);
     }
   }
 
@@ -52,10 +62,16 @@ const Cart = () => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {authUser.cart.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={5}>No books in your cart</TableCell>
+              </TableRow>
+            )}
             {authUser.cart.map(row => (
               <TableRow key={row._id}>
                 <TableCell>{row.isbn}</TableCell>
                 <TableCell>{row.title}</TableCell>
+                <TableCell>{row.author.name}</TableCell>
                 <TableCell>{row.language}</TableCell>
                 <TableCell align="right">
                   <RemoveShoppingCartIcon 
@@ -70,6 +86,17 @@ const Cart = () => {
           </TableBody>
         </Table>
       </Card>
+      {authUser.cart.length > 0 && (
+        <>        
+          <Divider sx={{ mt: 4, mb: 4 }} />
+          <Button variant="contained" 
+            disabled={isCheckingOut}
+            onClick={checkout}
+          >
+            {isCheckingOut ? "Placing Order ..." : "Checkout"}
+          </Button>
+        </>
+      )}
     </>    
   );
 }

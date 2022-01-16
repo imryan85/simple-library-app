@@ -103,7 +103,7 @@ const SignUp = ({ setToken }) => {
                 />
               </Grid>
               <Grid item xs={8}>
-                <Button variant="outlined" type="submit">
+                <Button variant="contained" type="submit">
                   Sign Up
                 </Button>
                 {

@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Search from './pages/Search';
 import Cart from './pages/Cart'
+import BooksLended from "./pages/BooksLended";
 
 const Routes = () => { 
   const { token } = useAuth();
@@ -27,6 +28,7 @@ const Routes = () => {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/bookslended" element={<BooksLended />} />
     </ReactRoutes>  
   );
 }

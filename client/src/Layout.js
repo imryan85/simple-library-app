@@ -34,19 +34,25 @@ const Layout = ({ maxWidth, children }) => {
       <CssBaseline />
       <AppBar position="static" elevation={0} sx={{ background: '#ffffff', color: '#000000de' }}>
         <Toolbar>
-          <Typography variant="h6" component={Link} to="/" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Simple-Library-App
           </Typography>
           {
             authUser && (
               <>
-                <Button component={Link} to="/cart" color="inherit">
+                <Button component={Link} to="/" color="inherit" sx={{mr: 1 }}>
+                  Search
+                </Button>
+                <Button component={Link} to="/bookslended" color="inherit" sx={{mr: 1 }}>
+                  Books Lended
+                </Button>
+                <Button component={Link} to="/cart" color="inherit" sx={{ mr: 1 }}>
                   <ShoppingCartIcon />
                   {
                     authUser.cart.length > 0 && `(${authUser.cart.length})`
                   }
                 </Button>
-                <Button color="inherit" onClick={signOut}>
+                <Button color="inherit" onClick={signOut} sx={{ mr: 1 }}>
                   Sign Out
                 </Button>
               </>

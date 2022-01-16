@@ -35,11 +35,7 @@ const Search = () => {
         userId: authUser._id,
         bookId,
       });
-      const { cart } = res.data;
-      setAuthUser({
-        ...authUser,
-        cart,
-      })
+      setAuthUser(res.data)
       alert('Added');
     } catch (e) {
       alert(e.response.data.message);
@@ -83,7 +79,7 @@ const Search = () => {
             </Grid>
             <Grid item xs={12} sx={{ mt: 2, textAlign: 'center' }}>
               <Button 
-                variant="outlined"
+                variant="contained"
                 onClick={search}
               >
                 Search Books

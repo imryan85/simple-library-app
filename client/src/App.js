@@ -12,6 +12,8 @@ const App = () => {
   const [authUser, setAuthUser] = useState(undefined);
   const { token } = useAuth();
 
+  console.log('authUser', authUser)
+
   useEffect(() => {
     const getUserData = async () => {
       const res = await axios.get(`/user/${token}`);
@@ -20,7 +22,7 @@ const App = () => {
     if (token) {   
       getUserData();   
     }
-  }, [])
+  }, [token])
 
   return (
     <UserContext.Provider value={{ authUser, setAuthUser }}>

@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Category = require('../../models/Category');
 const Book = require('../../models/Book');
 const Author = require('../../models/Author');
+const Checkout = require('../../models/Checkout');
+const BookLended = require('../../models/BookLended');
+const User = require('../../models/User');
 
 module.exports.loadSampleData = async () => {
   let categories = [];
@@ -71,6 +74,12 @@ module.exports.clearSampleData = async () => {
   const categoryDeleted = await Category.deleteMany({}).exec();
   const authorDeleted = await Author.deleteMany({}).exec();
   const bookDeleted = await Book.deleteMany({}).exec();
+  const bookLendedDeleted = await BookLended.deleteMany({}).exec();
+  const checkoutDeleted = await Checkout.deleteMany({}).exec();
+  const userReseted = await User.updateMany(
+    {}, 
+    { $set: { cart: [], lending: [] } }
+  )
 
   return {
     categoryDeleted,
