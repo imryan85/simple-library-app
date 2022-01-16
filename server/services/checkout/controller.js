@@ -29,13 +29,18 @@ module.exports.placeOrder = async (userId) => {
       { 
         $set: { cart: [] },
       }
-    );
+    );    
+
+    const ret = await getUserByQuery({ _id: user.id });
 
     const endpoint = `${process.env.BULL_MQ_URI}/queue/checkout`;
     const msg = { checkoutId: checkout._id };
     await axios.post(endpoint, msg);
 
-    return await getUserByQuery({ _id: user.id })
+    // commit the changes if everything was successful
+    await session.commitTransaction();
+
+    return ret;
   } catch (err) {
     // rollback any changes made in the database
     await session.abortTransaction();
@@ -111,9 +116,6 @@ module.exports.processOrder = async (checkoutId) => {
       { $set: { message },
     });
 
-    // commit the changes if everything was successful
-    await session.commitTransaction();
-
     // Send email notification
     queueEmail(
       curUser.email, 
@@ -123,6 +125,9 @@ module.exports.processOrder = async (checkoutId) => {
       `Hi ${curUser.fullname},/r/n/r/n${message.join('/r/n')}`,
       `Hi ${curUser.fullname},<br /><br />${message.join('<br />')}`,      
     );
+
+    // commit the changes if everything was successful
+    await session.commitTransaction();
   } catch (err) {
     // rollback any changes made in the database
     await session.abortTransaction();
