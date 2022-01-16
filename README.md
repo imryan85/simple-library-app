@@ -1,3 +1,5 @@
 # simple-library-app
 
-App URL: https://ryan-simple-library-app.herokuapp.com/
+Subsystem (queues/jobs) Repository: https://github.com/imryan85/simple-library-subsystem/
+
+Demo App URL: https://ryan-simple-library-app.herokuapp.com/
