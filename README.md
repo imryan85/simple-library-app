@@ -1,6 +1,6 @@
 # simple-library-app
 
-Subsystem (queues/jobs) Repository: https://github.com/imryan85/simple-library-subsystem
+Subsystem (Bull/Redis MQ) Repository: https://github.com/imryan85/simple-library-subsystem
 
 Elasticsearch/Logstash/Kibana Repository: https://github.com/imryan85/simple-library-elk
 
