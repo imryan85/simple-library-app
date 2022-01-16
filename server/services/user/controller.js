@@ -6,12 +6,9 @@ const tokenSecret = "somesecret";
 
 module.exports.signInUser = async (email, password) => {  
   try {
-    const query = { email, password };
     const user = await this.getUserByQuery({ email, password });
 
-    if (!user) {
-      throw new Error('Cannot find username and password');
-    }
+    if (!user) throw new Error('Cannot find username and password');
 
     const token = jwt.sign(
       { user: email },

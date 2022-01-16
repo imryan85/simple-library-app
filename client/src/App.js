@@ -10,19 +10,26 @@ import Routes from "./routes";
 
 const App = () => { 
   const [authUser, setAuthUser] = useState(undefined);
-  const { token } = useAuth();
+  const { token, deleteToken } = useAuth();
 
   console.log('authUser', authUser)
 
   useEffect(() => {
     const getUserData = async () => {
-      const res = await axios.get(`/user/${token}`);
-      setAuthUser(res.data);
+      try {
+        const res = await axios.get(`/user/${token}`);
+        setAuthUser(res.data);
+      } catch (e) {
+        if (e?.response?.data?.message === "jwt expired") {
+          deleteToken();
+          window.location.reload();
+        };
+      }
     }
     if (token) {   
       getUserData();   
     }
-  }, [token])
+  }, [deleteToken, token])
 
   return (
     <UserContext.Provider value={{ authUser, setAuthUser }}>
