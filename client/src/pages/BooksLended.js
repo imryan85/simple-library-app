@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import axios from 'axios';
 import UserContext from '../UserContext';
+import useAuth from '../hooks/useAuth';
 import { 
   Card,
   Typography,
@@ -12,7 +14,18 @@ import {
 import moment from "moment";
 
 const BooksLended = () => {
-  const { authUser } = useContext(UserContext);
+  const { authUser, setAuthUser } = useContext(UserContext);
+  const { token } = useAuth();
+  
+  useEffect(() => {
+    const getUserData = async () => {      
+      const res = await axios.get(`/user/${token}`);
+      setAuthUser(res.data);
+    }
+    if (token) {   
+      getUserData();   
+    }
+  }, [setAuthUser, token])
 
   if (!authUser) return null;
 
