@@ -1,46 +1,24 @@
 const mongoose = require('mongoose');
 const Book = require('../../models/Book');
+const { esSearchBooks } = require('../../esServices/esBookSearch');
 
 module.exports.search = async (title, author, isbn) => {
   try {
-    const bookQuery = [];
-    const authorQuery = [];
+    if (!title && !author && !isbn)
+      throw new Error("You must enter serch keywords");
 
-    if (title) {
-      const titleKeywords = title.trim().split(' ');
-      titleKeywords.forEach(keyword => {
-        bookQuery.push({ title: { $regex: new RegExp(keyword, 'i') }});
-      });  
-    }
+    const result = await esSearchBooks(title, author, isbn);
+    const ret = result.map(b => ({
+      _id: b._id,
+      isbn: b._source.isbn,
+      title: b._source.title,
+      authorName: b._source.authorName,
+      language: b._source.language,
+      quantityAvailable: b._source.quantityAvailable,
+      quantity: b._source.quantity,
+    }));
 
-    if (isbn) {
-      bookQuery.push({ isbn: isbn });
-    }
-
-    if (author) {
-      const authorKeywords = author.trim().split(' ');
-      authorKeywords.forEach(keyword => {
-        authorQuery.push({ name: { $regex: new RegExp(keyword, 'i') }});
-      });  
-    }    
-
-    const books = await Book
-      .find(
-        bookQuery.length > 0 ? { $and: bookQuery } : {}
-      )
-      .populate({
-        path: 'author',
-        match: authorQuery.length > 0 ? { $and: authorQuery } : {},
-        select: 'name',
-      })
-      .populate({
-        path: 'category',
-        select: 'category',
-      })
-      .exec();    
-    const result = books.filter(b => b.author !== null);
-
-    return result;
+    return ret;
   } catch (err) {
     throw err;
   }

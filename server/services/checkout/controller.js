@@ -91,9 +91,8 @@ module.exports.processOrder = async (checkoutId) => {
         await Book.findOneAndUpdate(
           { _id: curBook._id },
           {
-            $set: { 
-              quantityAvailable: curBook.quantityAvailable - 1 
-            },
+            $set: { quantityAvailable: curBook.quantityAvailable - 1 },
+            $push: { lendedTo: curUser._id },
           }
         )
 

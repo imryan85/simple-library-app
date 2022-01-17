@@ -1,4 +1,4 @@
-const db = require('../../tests/db');
+const testDB = require('../../tests/testDB');
 const User = require('../../models/User');
 const Book = require('../../models/Book');
 const Category = require('../../models/Category');
@@ -11,7 +11,7 @@ const {
 } = require('./controller');
 
 beforeAll(async () => {
-  await db.connect();
+  await testDB.connect();
 
   //load test data
 
@@ -40,8 +40,8 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  await db.clear();
-  await db.close();
+  await testDB.clear();
+  await testDB.close();
 })
 
 describe("Sign In", () => {

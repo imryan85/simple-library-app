@@ -71,7 +71,7 @@ const Cart = () => {
               <TableRow key={row._id}>
                 <TableCell>{row.isbn}</TableCell>
                 <TableCell>{row.title}</TableCell>
-                <TableCell>{row.author.name}</TableCell>
+                <TableCell>{row.authorName}</TableCell>
                 <TableCell>{row.language}</TableCell>
                 <TableCell align="right">
                   <RemoveShoppingCartIcon 

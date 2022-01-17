@@ -58,20 +58,12 @@ module.exports.getUserByQuery = async (query) => {
     .findOne(query)
     .populate({
       path: 'cart',
-      populate: {
-        path: 'author',
-        model: 'Author',
-      },
     })
     .populate({
       path: 'lending',
       populate: {
         path: 'book',
         model: 'Book',
-        populate: {
-          path: 'author',
-          model: 'Author',
-        },
       },
     })
     .exec();

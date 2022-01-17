@@ -47,14 +47,14 @@ const BooksLended = () => {
           <TableBody>
             {authUser.lending.length === 0 && (
               <TableRow>
-                <TableCell colSpan={5}>No books in your cart</TableCell>
+                <TableCell colSpan={5}>No books are lended</TableCell>
               </TableRow>
             )}
             {authUser.lending.map(row => (
               <TableRow key={row._id}>
                 <TableCell>{row.book.isbn}</TableCell>
                 <TableCell>{row.book.title}</TableCell>
-                <TableCell>{row.book.author.name}</TableCell>
+                <TableCell>{row.book.authorName}</TableCell>
                 <TableCell>
                   {/* show due date in local time */}
                   {moment(new Date(row.dueDate)).format("MMM D, YYYY")}

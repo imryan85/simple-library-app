@@ -29,7 +29,7 @@ const App = () => {
     if (token) {   
       getUserData();   
     }
-  }, [deleteToken, token])
+  }, [])
 
   return (
     <UserContext.Provider value={{ authUser, setAuthUser }}>

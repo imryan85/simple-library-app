@@ -1,4 +1,4 @@
-const db = require('../../tests/db');
+const testDB = require('../../tests/testDB');
 const Category = require('../../models/Category');
 const Author = require('../../models/Author');
 const Book = require('../../models/Book');
@@ -13,7 +13,7 @@ let bookToAddId;
 let bookToRemoveId;
 
 beforeAll(async () => {
-  await db.connect();
+  await testDB.connect();
 
   //load test data
   const category = await new Category({ category: `Some Category`}).save();
@@ -49,8 +49,8 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  await db.clear();
-  await db.close();
+  await testDB.clear();
+  await testDB.close();
   bookToAddId = undefined;
   bookToRemoveId = undefined;
 })

@@ -21,6 +21,10 @@ const BookSchema = new Schema(
       ref: 'Author',
       required: true,
     },
+    authorName: {
+      type: String,
+      required: true,
+    },   
     language: {
       type: String,
       required: true,

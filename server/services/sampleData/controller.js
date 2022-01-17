@@ -26,14 +26,15 @@ module.exports.loadSampleData = async () => {
   // create books
   for (let i = 1; i <= 10; i++) {
     const categoryId = categories[getRandomInt(categories.length)]._id;
-    const authorId = authors[getRandomInt(authors.length)]._id;
+    const author = authors[getRandomInt(authors.length)];
     const quantity = getRandomInt(2) + 1;
 
     const book = await new Book({
       isbn: pad(i, 10),
       title: `Book Title ${i}`,
       category: categoryId,
-      author: authorId,
+      author: author._id,
+      authorName: author.name,
       language: "English",
       quantity: quantity,
       quantityAvailable: quantity,
@@ -48,7 +49,7 @@ module.exports.loadSampleData = async () => {
 
     // add book to authors
     await Author.findOneAndUpdate(
-      { _id: authorId }, 
+      { _id: author._id }, 
       { $push: { books: book._id }
     });
   }

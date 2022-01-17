@@ -22,11 +22,17 @@ const Search = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [isbn, setIsbn] = useState('');
+  const [errMessage, setErrMessage] = useState('');
   const [searchResults, setSearchResults] = useState(undefined);
 
   const search = async () => {
-    const res = await axios.post('/search', { title, author, isbn });
-    setSearchResults(res.data);
+    try {
+      const res = await axios.post('/search', { title, author, isbn });
+      setSearchResults(res.data);
+      setErrMessage('');
+    } catch (e) {
+      setErrMessage(e.response.data.message);
+    }
   }
 
   const addToCart = async (bookId) => {
@@ -84,7 +90,12 @@ const Search = () => {
               >
                 Search Books
               </Button>
-            </Grid>
+            </Grid>            
+            {errMessage && (
+              <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                {errMessage}
+              </Grid>
+            )}
           </Grid>
         </CardContent>
       </Card>
@@ -96,7 +107,6 @@ const Search = () => {
                 <TableCell>ISBN</TableCell>
                 <TableCell>Title</TableCell>
                 <TableCell>Author</TableCell>
-                <TableCell>Category</TableCell>
                 <TableCell>Language</TableCell>
                 <TableCell align="center">Available</TableCell>
                 <TableCell></TableCell>
@@ -107,8 +117,7 @@ const Search = () => {
                 <TableRow key={row._id}>
                   <TableCell>{row.isbn}</TableCell>
                   <TableCell>{row.title}</TableCell>
-                  <TableCell>{row.author.name}</TableCell>
-                  <TableCell>{row.category.category}</TableCell>
+                  <TableCell>{row.authorName}</TableCell>
                   <TableCell>{row.language}</TableCell>
                   <TableCell align="center">{row.quantityAvailable}/{row.quantity}</TableCell>
                   <TableCell align="right">
