@@ -10,6 +10,7 @@ const checkoutRouter = require('./services/checkout/routes');
 const emailRouter = require('./services/email/routes');
 const categoryRouter = require('./services/category/routes');
 const authorRouter = require('./services/author/routes');
+const overdueRouter = require('./services/overdue/routes');
 
 require('dotenv').config()
 
@@ -45,6 +46,7 @@ app.use('/checkout', checkoutRouter);
 app.use('/email', emailRouter);
 app.use('/category', categoryRouter);
 app.use('/author', authorRouter);
+app.use('/overdue', overdueRouter);
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
