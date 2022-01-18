@@ -6,8 +6,9 @@ Elasticsearch/Monstache/Kibana Repository (mongo-elastic sync): https://github.c
 
 CRON Job Repository (overdue check): https://github.com/imryan85/simple-library-overdue-checker
 
-Demo App URL: https://ryan-simple-library-app.herokuapp.com
+## Demo
 
+Demo App URL: https://ryan-simple-library-app.herokuapp.com
 
 ## Description
 
