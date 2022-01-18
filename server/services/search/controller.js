@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Book = require('../../models/Book');
 const { esSearchBooks } = require('../../esServices/esBookSearch');
 

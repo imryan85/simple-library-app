@@ -8,6 +8,8 @@ const searchRouter = require('./services/search/routes');
 const cartRouter = require('./services/cart/routes');
 const checkoutRouter = require('./services/checkout/routes');
 const emailRouter = require('./services/email/routes');
+const categoryRouter = require('./services/category/routes');
+const authorRouter = require('./services/author/routes');
 
 require('dotenv').config()
 
@@ -41,6 +43,8 @@ app.use('/search', searchRouter);
 app.use('/cart', cartRouter);
 app.use('/checkout', checkoutRouter);
 app.use('/email', emailRouter);
+app.use('/category', categoryRouter);
+app.use('/author', authorRouter);
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {

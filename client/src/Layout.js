@@ -43,6 +43,9 @@ const Layout = ({ maxWidth, children }) => {
                 <Button component={Link} to="/" color="inherit" sx={{mr: 1 }}>
                   Search
                 </Button>
+                <Button component={Link} to="/browse" color="inherit" sx={{mr: 1 }}>
+                  Browse
+                </Button>
                 <Button component={Link} to="/bookslended" color="inherit" sx={{mr: 1 }}>
                   Books Lended
                 </Button>

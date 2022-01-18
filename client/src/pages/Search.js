@@ -47,6 +47,8 @@ const Search = () => {
       alert(e.response.data.message);
     }
   }
+  
+  if (!authUser) return null;
 
   return (
     <>
