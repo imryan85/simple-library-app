@@ -4,6 +4,8 @@ Subsystem (Bull/Redis MQ) Repository: https://github.com/imryan85/simple-library
 
 Elasticsearch/Logstash/Kibana Repository: https://github.com/imryan85/simple-library-elk
 
+CRON Job Repository (overdue check): https://github.com/imryan85/simple-library-overdue-checker
+
 Demo App URL: https://ryan-simple-library-app.herokuapp.com
 
 
