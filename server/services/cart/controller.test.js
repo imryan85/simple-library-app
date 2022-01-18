@@ -3,6 +3,8 @@ const Category = require('../../models/Category');
 const Author = require('../../models/Author');
 const Book = require('../../models/Book');
 const User = require('../../models/User');
+require('../../models/BookLended');
+
 const {
   addToCart,
   removeFromCart,
@@ -23,6 +25,7 @@ beforeAll(async () => {
     title: `Some Book Title 1`,
     category: category._id,
     author: author._id,
+    authorName: author.name,
     language: "English",
     quantity: 1,
     quantityAvailable: 1,
@@ -32,6 +35,7 @@ beforeAll(async () => {
     title: `Some Book Title 2`,
     category: category._id,
     author: author._id,
+    authorName: author.name,
     language: "English",
     quantity: 1,
     quantityAvailable: 1,
@@ -40,7 +44,8 @@ beforeAll(async () => {
     fullname: `Some Name`,
     email: `email@test.com`,
     password: `pwd`,
-    cart: [ bookToRemove._id ]
+    cart: [ bookToRemove._id ],    
+    lending: [],
   }).save();
 
   userId = user._id;

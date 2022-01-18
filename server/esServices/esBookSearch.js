@@ -38,8 +38,6 @@ module.exports.esSearchBooks = (title, author, isbn) => {
   }
 
   return new Promise((resolve, reject) => {
-    console.log(matchQueries)
-
     client.search({
       index: 'librarydb_books',
       body: {

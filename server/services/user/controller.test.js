@@ -22,6 +22,7 @@ beforeAll(async () => {
     isbn: '0123456789',
     title: `Some Book Title 1`,
     category: category._id,
+    authorName: author.name,
     author: author._id,
     language: "English",
     quantity: 1,

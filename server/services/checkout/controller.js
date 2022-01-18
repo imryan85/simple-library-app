@@ -79,7 +79,6 @@ module.exports.processOrder = async (checkoutId) => {
         }).save();
 
         // add bookLended id to user.lending
-        // empty cart
         await User.findOneAndUpdate(
           { _id: curUser._id },
           { 
