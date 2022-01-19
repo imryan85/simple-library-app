@@ -4,7 +4,7 @@ Subsystem (Bull/Redis MQ) Repository: https://github.com/imryan85/simple-library
 
 Elasticsearch/Monstache/Kibana Repository (mongo-elastic sync): https://github.com/imryan85/simple-library-elk/
 
-CRON Job Repository (overdue check): https://github.com/imryan85/simple-library-overdue-checker
+Overdue check Azure Function App: https://github.com/imryan85/simple-library-overdue-checker
 
 ## Demo
 
