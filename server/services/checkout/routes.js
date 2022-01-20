@@ -17,7 +17,7 @@ router.post('/queue', async (req, res) => {
     const result = await placeOrder(userId);
     res.json(result);
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       message: err.message
     });
   }
@@ -31,7 +31,7 @@ router.post('/process', async (req, res) => {
     const result =  await processOrder(checkoutId);
     res.json(result);
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       message: err.message
     });
   }

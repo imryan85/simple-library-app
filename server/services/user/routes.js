@@ -16,9 +16,15 @@ router.post('/signin', async (req, res) => {
     const token = await signInUser(email, password);
     res.json(token);
   } catch (err) {
-    res.status(400).json({
-      message: err.message
-    });
+    if (err.message == 'Cannot find username and password') {
+      res.status(404).json({
+        message: err.message
+      });
+    } else {
+      res.status(400).json({
+        message: err.message
+      });
+    }
   }
 });
 

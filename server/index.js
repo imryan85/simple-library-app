@@ -19,13 +19,15 @@ const PORT = process.env.PORT || 3001;
 // Mongo DB
 const mongoDB = process.env.MONGO_DB_URI
 
-mongoose
-  .connect(mongoDB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('DB connnection successful!'))
-  .catch(err => console.error(err));
+if (process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(mongoDB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => console.log('DB connnection successful!'))
+    .catch(err => console.error(err));
+}
 
 const app = express();
 
@@ -53,6 +55,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
+  });
+}
+
+module.exports = app;

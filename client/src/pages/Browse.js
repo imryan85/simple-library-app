@@ -82,7 +82,7 @@ const Browse = () => {
     );
   }
   
-  if (!authUser) return null;
+  if (!authUser) return "loading...";
 
   return (
     <>
